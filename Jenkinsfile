@@ -23,7 +23,7 @@ pipeline {
                 sh 'node ./server/server.js &'
                 sh 'sleep 5'
                 sh 'cd ./client && npm install --quiet'
-                sh 'cd ./client && grunt release'
+                sh 'cd ./client && grunt release --force'
             }
         }
         stage('Test') {
