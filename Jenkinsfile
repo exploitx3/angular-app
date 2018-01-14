@@ -20,16 +20,15 @@ pipeline {
             steps {
                 sh 'npm install -g grunt-cli@0.1.x karma@0.8.x'
                 sh 'cd server && npm install --quiet'
-                sh 'node ./server/server.js &'
-                sh 'sleep 5'
-                sh 'cd ./client && npm install --quiet'
-                sh 'cd ./client && grunt release --force'
+                sh 'cd ./client && npm install --quiet && grunt build'
             }
         }
         stage('Test') {
             steps {
-                sh 'cd server && grunt release'
-                sh 'cd ./client && grunt release'
+                sh 'cd server && grunt default timestamp'
+                sh 'node ./server/server.js &'
+                sh 'sleep 5'
+                sh 'cd ./client && grunt release --force'
             }
         }
 
