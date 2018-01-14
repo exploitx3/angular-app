@@ -33,6 +33,11 @@ pipeline {
                 sh 'cd ./client && grunt release --force'
             }
         }
-
+        stage('Release') {
+            steps {
+                sh 'git checkout -b rc-"$BUILD_NUMBER"'
+                sh 'git push origin -u rc-"$BUILD_NUMBER"'
+            }
+        }
     }
 }
