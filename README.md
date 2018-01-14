@@ -1,7 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/angular-app/angular-app.png)](http://travis-ci.org/angular-app/angular-app)
 
 # [AngularJS](http://www.angularjs.org/) CRUD application demo
-
+![alt text](https://github.com/exploitx3/JenkinsCI-CD/raw/master/Screenshot-2018-1-14%20jenkins%20Build%20Angular%20%2324.png)
 ***
 
 ## Purpose
