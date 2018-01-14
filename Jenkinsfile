@@ -13,12 +13,7 @@ properties(
     ]
 )
 node {
-   agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
-        }
-    }
+
 
     stage('Checkout') {
         //disable to recycle workspace data to save time/bandwidth
