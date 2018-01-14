@@ -25,6 +25,8 @@ pipeline {
         }
         stage('Test') {
             steps {
+            //Fix for nodeunit failing
+                sh 'npm update grunt-contrib-nodeunit -S'
                 sh 'cd server && grunt default timestamp'
                 sh 'node ./server/server.js &'
                 sh 'sleep 5'
