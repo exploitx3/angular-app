@@ -12,53 +12,17 @@ properties(
         )
     ]
 )
-node {
+pipeline {
+    agent any
 
-
-    stage('Checkout') {
-        //disable to recycle workspace data to save time/bandwidth
-        deleteDir()
-        checkout scm
-
-        //enable for commit id in build number
-        //env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
-        //env.git_commit_id_short = env.git_commit_id.take(7)
-        //currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
-    }
-
-    stage('Build') {
-        steps {
+    stages {
+        stage('Build') {
+            steps {
                 sh 'npm install -g grunt-cli@0.1.x karma@0.8.x'
                 sh 'cd server && npm install --quiet && grunt build'
                 sh 'cd ../client && npm install --quiet && grunt build'
+            }
         }
-    }
 
-    stage('Test') {
-        withEnv(["CHROME_BIN=/usr/bin/chromium-browser"]) {
-          sh 'ng test --progress=false --watch false'
-        }
-        junit '**/test-results.xml'
-    }
-
-    stage('Lint') {
-        sh 'ng lint'
-    }
-
-    stage('Build') {
-        milestone()
-        sh 'ng build --prod --aot --sm --progress=false'
-    }
-
-    stage('Archive') {
-        sh 'tar -cvzf dist.tar.gz --strip-components=1 dist'
-        archive 'dist.tar.gz'
-    }
-
-    stage('Deploy') {
-        milestone()
-        echo "Deploying..."
     }
 }
-
-
