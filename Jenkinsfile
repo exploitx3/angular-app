@@ -22,14 +22,14 @@ pipeline {
                 sh 'cd server && npm install --quiet'
                 sh 'node server.js &'
                 sh 'sleep 5'
-                sh 'cd ../client && npm install --quiet'
+                sh 'cd ./client && npm install --quiet'
                 sh 'grunt release'
             }
         }
         stage('Test') {
             steps {
                 sh 'cd server && grunt release'
-                sh 'cd ../client && grunt release'
+                sh 'cd ./client && grunt release'
             }
         }
 
